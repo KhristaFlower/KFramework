@@ -9,6 +9,24 @@ class KFramework {
     private $_viewPath = PATH_VIEWS;
     private $_defaultErrorController = SITE_DEFAULT_ERROR_CONTROLLER;
     private $_defaultController = SITE_DEFAULT_CONTROLLER;
+    
+    /**
+     * This array stores mixed values that are added when errors occour for optional display.
+     * @var String Array Array used to hold error strings for display on an error page.
+     */
+    private $_errorLog = array();
+    
+    /**
+     * Used to offset the URL index positions when trying to determine the method to invoke.
+     * @var Integer The array offset for the controller in the URL.
+     */
+    private $_controllerDepth = 0; // Set automatically - Leave at 0.
+    
+    /**
+     * When a controller file is stored in a subfolder to the main one, the route to that file is stored here.
+     * @var String The path required to go from the controller base folder to the controller being used.
+     */
+    private $_controllerDepthPath = ""; // Set automatically - Leave blank.
 
     /**
      * Start the framework.
@@ -23,10 +41,10 @@ class KFramework {
      * Process the URL into useable segments.
      */
     private function _getURL() {
-        $url = isset($_GET['url']) ? $_GET['url'] : $this->_defaultController;
-        $url = rtrim($url, '/');
-        $url = filter_var($url, FILTER_SANITIZE_URL);
-        $this->_url = explode('/', $url);
+        $url_raw = isset($_GET['url']) ? $_GET['url'] : $this->_defaultController;
+        $url_edited = rtrim($url_raw, '/');
+        $url_final = filter_var($url_edited, FILTER_SANITIZE_URL);
+        $this->_url = explode('/', $url_final);
     }
 
     /**
@@ -40,7 +58,11 @@ class KFramework {
         }
         
         echo $controller;
+        
+        $controllerPath = pathinfo($controller);
+        echo "<br/><br/>".$controllerPath['dirname'];
         die();
+        
     }
 
     /**
@@ -50,7 +72,9 @@ class KFramework {
      *  url[0].php as a controller
      *  url[0]/url[1].php as a controller
      *  url[0]/url[0].php as a controller
-     *  Throw a 404, we were unable to locate a controller.
+     *  Return nothing.
+     * 
+     * @return String File path to a controller file.
      * 
      */
     private function _selectController() {
@@ -71,6 +95,14 @@ class KFramework {
         
         // No controller was found in a location that it could be expected based on the URL parameters.
         return null;
+    }
+    
+    /**
+     * Fire an error and kill the script.
+     */
+    private function _error($errorType = SITE_DEFAULT_ERROR_CONTROLLER)
+    {
+        
     }
 
 }

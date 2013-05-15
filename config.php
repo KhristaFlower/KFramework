@@ -18,6 +18,7 @@ define("BASE_URL","");
 define("PATH_CONTROLLERS","controllers/");
 define("PATH_MODELS","models/");
 define("PATH_VIEWS","views/");
+define("PATH_ERROR_CONTROLLERS","controllers/errors/");
 
 /*
  * SITE CONFIGURATION
