@@ -6,7 +6,6 @@ class UCP extends UCP_Controller {
         parent::__construct();
 
         $this->_requiresLogin[] = "index";
-
         $this->view->subMenuKey = "UCP";
     }
 

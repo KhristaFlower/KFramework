@@ -27,14 +27,20 @@ class KFramework {
      * @var String The path required to go from the controller base folder to the controller being used.
      */
     private $_controllerDepthPath = ""; // Set automatically - Leave blank.
-
+    
+    /**
+     * Used to hold additional details about the controller.
+     * @var Array Array of details about the current controller.
+     */
+    private $_controllerDetails = array();
+    
     /**
      * Start the framework.
      */
     public function init() {
         $this->_getURL();
         $this->_loadController();
-        //$this->_callControllerMethod();
+        $this->_callControllerMethod();
     }
 
     /**
@@ -57,12 +63,37 @@ class KFramework {
             die();
         }
         
-        echo $controller;
-        
         $controllerPath = pathinfo($controller);
-        echo "<br/><br/>".$controllerPath['dirname'];
-        die();
+        $this->_controllerDepthPath = $controllerPath['dirname'];
+        $this->_controllerDepth = count(explode("/",$controllerPath['dirname']))-1;
+        $this->_controllerDetails['name'] = $controllerPath['filename'];
+        if(empty($this->_url[$this->_controllerDepth])){
+            $this->_url[$this->_controllerDepth] = "index";
+        }
+        $this->_controllerDetails['method'] = $this->_url[1+$this->_controllerDepth];
         
+        require $controller;
+        $this->_controller = new $this->_controllerDetails['name'];
+        
+    }
+    
+    /**
+     * Use the controller in different ways depending on how the page was requested.
+     */
+    private function _callControllerMethod()
+    {
+        // @TODO: Ensure user has permission to access method.
+        
+        // Get the name of the method from the URL.
+        $method = $this->_url[$this->_controllerDepth];
+        
+        // Prevent access to restricted methods and send a 404 when methods cannot be found.
+        if(!method_exists($this->_controller, $method) || !strncmp($method, "_", 1)){
+            // @TODO: Throw a 404.
+            die();
+        }else{
+            $this->_controller->{$method}();
+        }
     }
 
     /**
