@@ -9,3 +9,8 @@ a:link, a:visited{
 a:hover{
     color:#BF5303;
 }
+
+footer{
+    font-size:12px;
+    text-align:center;
+}

@@ -3,12 +3,12 @@
 class Controller {
 
     /**
-     * @var String Array - Holds the names of the methods that require administration rights to access.
+     * @var String Array holds the names of the methods that require administration rights to access.
      */
     public $_requiresAdmin;
 
     /**
-     * @var String Array - Holds the names of the methods that require a user to be logged in to access.
+     * @var String Array holds the names of the methods that require a user to be logged in to access.
      */
     public $_requiresLogin;
 
@@ -18,7 +18,7 @@ class Controller {
     public $_loggedIn = false;
 
     /**
-     * @var String - Stores any additional pathing that was required to reach this controller.
+     * @var String Stores any additional pathing that was required to reach this controller.
      */
     public $_depthPath = "";
 
@@ -27,32 +27,29 @@ class Controller {
 
         $this->_requiresAdmin = array();
         $this->_requiresLogin = array();
-
+        
+        $this->_loggedIn = $this->checkLogin();
+        
         $this->view = new View();
 
         // Store a list of files that will be used on every page.
-        $this->view->js[] = "public/js/jquery.js";
-        $this->view->css[] = "public/css/default_main.css";
-        $this->view->css[] = "public/css/nav_sub.css";
+        $this->view->css[] = "main.css";
 
-        $this->_loggedIn = $this->checkLogin();
-
-        // Build up the navigation bar that will show at the top of the page.
-        // This setting stores the current tab for styling.
-        $this->view->mainMenuKey = "Index";
-
-        // Store all links that will be available at all times.
-        $this->view->mainMenuAll['Index'] = "/";
-
-        // Store the links to locations that require a logged in account to access.
-        $this->view->mainMenuIn['UCP'] = '/ucp/';
-        $this->view->mainMenuIn['Logout'] = '/ucp/logout/';
-
-        // Store the links that will be visible only to those who are not logged in.
-        $this->view->mainMenuOut['Login'] = '/ucp/login/';
-
-        // Store the links that will be availalbe if an account has admin privilages.
-        $this->view->mainMenuAdmin['ACP'] = "/acp/";
+        // Create a new navigation menu for display at the top of the page.
+        $this->view->_navMenu = new NavigationMenu();
+        
+        // Create categories for display on the navigation bar and populate them.
+        $homeCategory = new NavigationCategory("Home","/");
+        $ucpCategory = new NavigationCategory("UCP","/ucp/");
+        $ucpCategory->addMenuItem(new NavigationItem("Messages","/ucp/messages/"));
+        $ucpCategory->addMenuItem(new NavigationItem("Settings","/ucp/settings/"));
+        $ucpCategory->addMenuItem(new NavigationItem("Profile","/ucp/profile/"));
+        $ucpCategory->addMenuItem(new NavigationItem("Groups","/ucp/groups/"));
+        $testCategory = new NavigationCategory("Test","/");
+        $testCategory->addMenuItem(new NavigationItem("Navigation Test","/ucp/navtest/"));
+        
+        // Add categories to the main navigation.
+        $this->view->_navMenu->addCategory($homeCategory)->addCategory($ucpCategory)->addCategory($testCategory);
     }
 
     /**
@@ -62,10 +59,14 @@ class Controller {
     public function _verify($function_name) {
         if (in_array($function_name, $this->_requiresLogin)) {
             echo "This page requires logging in.";
+            //@TODO: Create login required error page.
+            die();
         }
 
         if (in_array($function_name, $this->_requiresAdmin)) {
             echo "You must be an administrator to access this page.";
+            //@TODO: Create admin required error page.
+            die();
         }
     }
 

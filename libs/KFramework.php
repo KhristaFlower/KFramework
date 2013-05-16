@@ -36,6 +36,7 @@ class KFramework {
     
     /**
      * Start the framework.
+     * @
      */
     public function init() {
         $this->_getURL();
