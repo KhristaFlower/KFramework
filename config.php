@@ -14,7 +14,6 @@ define("DB_DATABASE","");
  * PATH CONFIGURATION
  */
 
-define("BASE_URL","");
 define("PATH_CONTROLLERS","controllers/");
 define("PATH_MODELS","models/");
 define("PATH_VIEWS","views/");
@@ -23,6 +22,11 @@ define("PATH_ERROR_CONTROLLERS","controllers/errors/");
 /*
  * SITE CONFIGURATION
  */
+
+// The URL to the directory containing this file.
+// Manually set the SITE_BASE_URL if the $automaticAttempt fails.
+$automaticAttempt = $_SERVER['HTTP_HOST'];
+define("SITE_BASE_URL","http://$automaticAttempt/");
 
 // SITE_ID should be unique for each installation of the framework on your domain.
 define("SITE_ID","default");

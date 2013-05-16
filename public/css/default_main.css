@@ -1,0 +1,11 @@
+body{
+    background:silver;
+    font:14px sans-serif;
+}
+
+a:link, a:visited{
+    color:#FF6E04;
+}
+a:hover{
+    color:#BF5303;
+}

@@ -1,4 +1,2 @@
-<?php
-
-?>
-Footer
+    </div>
+</body>

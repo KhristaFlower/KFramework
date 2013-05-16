@@ -32,7 +32,7 @@ class Controller {
 
         // Store a list of files that will be used on every page.
         $this->view->js[] = "public/js/jquery.js";
-        $this->view->css[] = "public/css/default.css";
+        $this->view->css[] = "public/css/default_main.css";
         $this->view->css[] = "public/css/nav_sub.css";
 
         $this->_loggedIn = $this->checkLogin();
