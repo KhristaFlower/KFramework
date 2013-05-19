@@ -7,7 +7,7 @@ class UCP extends Controller{
     }
     
     public function index(){
-        parent::index(__FILE__);
+        parent::index();
     }
 }
 

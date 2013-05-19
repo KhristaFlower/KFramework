@@ -1,46 +1,46 @@
 <?php
 
 /**
- * NavigationCategory is used to contain a list of menu items, their links, and permissions.
+ * NavigationSubMenu is used to contain a list of menu items, their links, and permissions.
  */
-class NavigationCategory {
+class NavigationSubMenu {
 
     /**
-     * The name of the category that should be displayed on the menu.
-     * @var string The name of the category on the navigation menu.
+     * The name of the submenu that should be displayed on the menu.
+     * @var string The name of the submenu on the navigation menu.
      */
     private $_name;
 
     /**
-     * The link to send the user to when the category name is clicked.
-     * @var string The link relative to the root where the category heading will take us.
+     * The link to send the user to when the submenu name is clicked.
+     * @var string The link relative to the root where the submenu heading will take us.
      */
     private $_link;
 
     /**
-     * Contains a list of NavigationItems for the current category.
+     * Contains a list of NavigationItems for the current submenu.
      * @var array An array holding NavigationItem objects to display with this menu.
      */
     private $_menuItems;
 
     /**
-     * Store whether the category should have interaction enabled.
-     * @var boolean Is the category enabled?
+     * Store whether the submenu should have interaction enabled.
+     * @var boolean Is the submenu enabled?
      */
     private $_enabled = true;
 
     /**
-     * Used to provide an indication that the page the user is on relates to this category.
-     * @var boolean Should this category be hilighted on the navigation bar?
+     * Used to provide an indication that the page the user is on relates to this submenu.
+     * @var boolean Should this submenu be hilighted on the navigation bar?
      */
     private $_active = false;
 
     /**
-     * Create a new category with the specified name.
-     * @param string $name Name of the navigation category.
-     * @param string $link Path the navigation category should link to.
-     * @param boolean $enabled Should the category respond to user interaction?
-     * @param boolean $active Should the category show hilighted in the navigation?
+     * Create a new submenu with the specified name.
+     * @param string $name Name of the navigation submenu.
+     * @param string $link Path the navigation submenu should link to.
+     * @param boolean $enabled Should the submenu respond to user interaction?
+     * @param boolean $active Should the submenu show hilighted in the navigation?
      */
     public function __construct($name = "", $link = "", $enabled = true, $active = false) {
         $this->_name = $name;
@@ -50,10 +50,18 @@ class NavigationCategory {
         
         return $this;
     }
+    
+    /**
+     * 
+     * @return array An array containing all NavigationItems items.
+     */
+    public function getMenuItems(){
+        return $this->_menuItems;
+    }
 
     /**
      * Add a component to the navigation menu.
-     * @param NavigationItem $navigationItem Menu item to append to the category.
+     * @param NavigationItem $navigationItem Menu item to append to the submenu.
      */
     public function addMenuItem($navigationItem) {
         $this->_menuItems[] = $navigationItem;
@@ -61,7 +69,7 @@ class NavigationCategory {
     }
     
     /**
-     * Get a NavigationItem from the category by using its name.
+     * Get a NavigationItem from the submenu by using its name.
      * @param String $menuItemName The name of the navigation item you wish to retrieve.
      * @return NavigationItem The requested navigation item object.
      */

@@ -43,15 +43,15 @@
             <div class="nav_wrapper">
                 <ul class="navmenu">
                     <?php
-                    // Loop through the categories.
-                    foreach ($this->_navMenu->getCategoryArray() as $category):
-                        echo "<li><a href='{$category->_link}'>{$category->_name}</a>";
-                        // Check to see if this category has any sub-objects.
-                        if (count($category->_menuItems) > 0) {
-                            // Create a sub-menu.
+                    // Loop through the submenus.
+                    foreach ($this->_navMenu->getSubMenus() as $mainmenu):
+                        echo "<li><a href='{$mainmenu->_link}'>{$mainmenu->_name}</a>";
+                        // Check to see if this submenu has any sub-objects.
+                        if (count($mainmenu->getMenuItems()) > 0) {
+                            // Create a sub-submenu.
                             echo "<ul class='subnav'>";
-                            // Loop through the sub-menu items.
-                            foreach ($category->_menuItems as $subMenu):
+                            // Loop through the sub-submenu items.
+                            foreach ($mainmenu->getMenuItems() as $subMenu):
                                 echo "<li><a href='{$subMenu->_link}'>{$subMenu->_name}</a></li>";
                             endforeach;
                             echo "</ul>";

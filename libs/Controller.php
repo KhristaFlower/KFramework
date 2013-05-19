@@ -42,17 +42,12 @@ class Controller {
         $this->view->_navMenu = new NavigationMenu();
         
         // Create categories for display on the navigation bar and populate them.
-        $homeCategory = new NavigationCategory("Home","/");
-        $ucpCategory = new NavigationCategory("UCP","/ucp/");
-        $ucpCategory->addMenuItem(new NavigationItem("Messages","/ucp/messages/"));
-        $ucpCategory->addMenuItem(new NavigationItem("Settings","/ucp/settings/"));
-        $ucpCategory->addMenuItem(new NavigationItem("Profile","/ucp/profile/"));
-        $ucpCategory->addMenuItem(new NavigationItem("Groups","/ucp/groups/"));
-        $testCategory = new NavigationCategory("Test","/");
-        $testCategory->addMenuItem(new NavigationItem("Navigation Test","/ucp/navtest/"));
+        $homeSubMenu = new NavigationSubMenu("Home","/");
+        $ucpSubMenu = new NavigationSubMenu("UCP","/ucp/");
+        $ucpSubMenu->addMenuItem(new NavigationItem("Settings","/ucp/settings/"));
         
         // Add categories to the main navigation.
-        $this->view->_navMenu->addCategory($homeCategory)->addCategory($ucpCategory)->addCategory($testCategory);
+        $this->view->_navMenu->addSubMenu($homeSubMenu)->addSubMenu($ucpSubMenu);
     }
 
     /**

@@ -1,16 +1,26 @@
+/* PLAIN HTML TAG STYLING */
 body{
-    background:silver;
+    background:#033D4D;
+    color:#8CC8D9;
     font:14px sans-serif;
 }
 
 a:link, a:visited{
-    color:#FF6E04;
+    color:#5ABDD9;
 }
 a:hover{
-    color:#BF5303;
+    color:#13738F;
+}
+
+/* PAGE STRUCTURE ELEMENTS */
+
+header{
+
 }
 
 footer{
     font-size:12px;
     text-align:center;
 }
+
+/* NAVIGATION STYLING */

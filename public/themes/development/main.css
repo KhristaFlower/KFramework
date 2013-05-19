@@ -1,14 +1,15 @@
 /* PLAIN HTML TAG STYLING */
 body{
-    background:silver;
+    background:#577504;
+    color:#DBF29A;
     font:14px sans-serif;
 }
 
 a:link, a:visited{
-    color:#FF6E04;
+    color:#CBF260;
 }
 a:hover{
-    color:#BF5303;
+    color:#A5D916;
 }
 
 /* PAGE STRUCTURE ELEMENTS */
@@ -23,49 +24,3 @@ footer{
 }
 
 /* NAVIGATION STYLING */
-
-.nav_wrapper{
-    width:1000px;
-}
-ul.navmenu{
-    list-style:none;
-    padding:0 20px;
-    margin:0;
-    float:left;
-    background:gray;
-}
-ul.navmenu li{
-    float:left;
-    margin:0;
-    padding:0 12px 0 0;
-    position:relative;
-}
-ul.navmenu li a{
-    padding:10px 5px;
-    colour:#FFF;
-    display:block;
-    text-decoration:none;
-    float:left;
-}
-ul.navmenu li a:hover{
-    
-}
-ul.navmenu li span{
-    
-}
-ul.navmenu li span.subnav{
-    list-style:none;
-    position:absolute;
-    left:0;
-    top:0;
-    display:none;
-    float:left;
-    width:150px;
-    border:1px solid black;
-}
-ul.navmenu li ul.subnav li{
-    margin:0;
-    padding:0;
-    clear:both;
-    width:150px;
-}

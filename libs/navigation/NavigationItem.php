@@ -42,7 +42,7 @@ class NavigationItem {
     private $_active = false;
     
     /**
-     * Create a new navigation item for a navigtion category.
+     * Create a new navigation item for a navigtion submenu.
      * @param String $name Name of the navigation item.
      * @param String $path Path the navigation item should link to.
      * @param Boolean $loginReq Should the item require a logged in account to access?
