@@ -9,8 +9,16 @@ class NavigationMenu {
      * An array used for storing catagories and their sub-objects.
      * @var NavigationCategory Array of categories.
      */
-    public $_categories;
+    private $_categories;
 
+    /**
+     * Get the list of categories stored in this NavigationMenu.
+     * @return array Array of NavigationCategory objects.
+     */
+    public function getCategoryArray(){
+        return $this->_categories;
+    }
+    
     /**
      * Add a category to the navigation menu.
      * @param NavigationCategory A category to add to the menu.

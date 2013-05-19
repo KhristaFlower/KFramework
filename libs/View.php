@@ -19,6 +19,12 @@ class View {
      * @var NavigationMenu The main navigation bar to use for the website.
      */
     public $_navMenu;
+    
+    /**
+     * Used when feeding certain information back to the user; may be removed in the future.
+     * @var array A mixed array containing the parameters from the URL.
+     */
+    public $_params;
 
     function __construct() {
         

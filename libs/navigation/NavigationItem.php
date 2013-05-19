@@ -9,37 +9,37 @@ class NavigationItem {
      * Name of the link in the menu.
      * @var String Name of the link.
      */
-    public $_name;
+    private $_name;
 
     /**
      * Path to a page relative to the root.
      * @var String URL from the root.
      */
-    public $_link;
+    private $_link;
 
     /**
      * Stores the whether the user has an active session or not.
      * @var Boolean Is the user logged in?
      */
-    public $_loginReq = false;
+    private $_loginReq = false;
 
     /**
      * Stores whether the currently logged in account needs to be an admin to access the link.
      * @var Boolean Does the user need to be an admin?
      */
-    public $_adminReq = false;
+    private $_adminReq = false;
 
     /**
      * Stores whether the link should be active for clicking.
      * @var Boolean Should the link be enabled?
      */
-    public $_enabled = true;
+    private $_enabled = true;
 
     /**
      * Used to hilight an item in the menu; this is usually the current page.
      * @var Boolean Is this item the active item?
      */
-    public $_active = false;
+    private $_active = false;
     
     /**
      * Create a new navigation item for a navigtion category.
@@ -59,6 +59,19 @@ class NavigationItem {
         $this->_enabled = $enabled;
         $this->_active = $active;
         
+        return $this;
+    }
+    
+    public function __get($property){
+        if(property_exists($this, $property)){
+            return $this->$property;
+        }
+    }
+    
+    public function __set($property, $value){
+        if(property_exists($this, $property)){
+            $this->$property = $value;
+        }
         return $this;
     }
     

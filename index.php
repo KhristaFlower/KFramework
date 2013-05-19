@@ -9,8 +9,9 @@ require 'config.php';
 function __autoload($class) {
     $possibleDirs = array();
     $possibleDirs[] = "libs/";
-    $possibleDirs[] = "components/";
+    $possibleDirs[] = "libs/navigation/";
 
+    
     foreach ($possibleDirs as $dir) {
         $file = "$dir$class.php";
         if(file_exists($file)){
@@ -21,4 +22,5 @@ function __autoload($class) {
 
 $KFramework = new KFramework();
 $KFramework->init();
+
 ?>

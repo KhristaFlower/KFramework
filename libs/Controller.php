@@ -3,34 +3,37 @@
 class Controller {
 
     /**
-     * @var String Array holds the names of the methods that require administration rights to access.
+     * @var string An array to hold the names of the methods that require administration rights to access.
      */
-    public $_requiresAdmin;
+    protected $_requiresAdmin;
 
     /**
-     * @var String Array holds the names of the methods that require a user to be logged in to access.
+     * @var string An array to hold the names of the methods that require a user to be logged in to access.
      */
-    public $_requiresLogin;
+    protected $_requiresLogin;
 
     /**
-     * @var Boolean - Stores true or false depending on if an account is in session or not.
+     * @var boolean Stores true or false depending on if an account is in session or not.
      */
-    public $_loggedIn = false;
-
+    protected $_loggedIn = false;
+    
     /**
-     * @var String Stores any additional pathing that was required to reach this controller.
+     * Contains details sent from the KFramework to this controller.
+     * @var array Contains details about this controller.
      */
-    public $_depthPath = "";
-
-    function __construct() {
+    protected $_details;
+    
+    public function __construct($details) {
         session_start();
-
-        $this->_requiresAdmin = array();
-        $this->_requiresLogin = array();
+        
+        $this->_details = $details;
+        
+        $this->view = new View();
         
         $this->_loggedIn = $this->checkLogin();
         
-        $this->view = new View();
+        $this->_requiresAdmin = array();
+        $this->_requiresLogin = array();
 
         // Store a list of files that will be used on every page.
         $this->view->css[] = "main.css";
@@ -56,7 +59,7 @@ class Controller {
      * Check to see if the account in session has the permission to access a function.
      * @param String $function_name The name of the function to check an account against.
      */
-    public function _verify($function_name) {
+    protected function _verify($function_name) {
         if (in_array($function_name, $this->_requiresLogin)) {
             echo "This page requires logging in.";
             //@TODO: Create login required error page.
@@ -75,7 +78,7 @@ class Controller {
      * @param String $name Name of the model file.
      * @param String $path Location of the model files.
      */
-    public function loadModel($name, $modelPath) {
+    protected function loadModel($name, $modelPath) {
         $path = $modelPath . $name . '_model.php';
 
         if (file_exists($path)) {
@@ -90,10 +93,14 @@ class Controller {
      * Automatically loads the index page for the given controller.
      * @param String $name Name of the index page.
      */
-    function index($name) {
-        $pathInfo = pathinfo($name);
-        $viewLocation = (strlen($this->_deepPath) > 0) ? "{$this->_deepPath}/" : "";
-        $viewLocation .= "{$pathInfo["filename"]}/{$pathInfo["filename"]}_index";
+    public function index() {
+        $this->renderPage("index");
+    }
+    
+    public function renderPage($page){
+        $viewLocation = (empty($this->_details['path'])) ? "" : implode("/", $this->_details['path']) . "/";
+        $viewLocation .= "{$this->_details['name']}/{$this->_details['name']}_$page";
+        
         $this->view->render($viewLocation);
     }
 
@@ -101,7 +108,7 @@ class Controller {
      * Check that the user is logged in.
      * @return Boolean User is logged in.
      */
-    function checkLogin() {
+    private function checkLogin() {
         //TODO Write the checkLogin function.
     }
 

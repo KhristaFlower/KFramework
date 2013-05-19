@@ -9,31 +9,31 @@ class NavigationCategory {
      * The name of the category that should be displayed on the menu.
      * @var string The name of the category on the navigation menu.
      */
-    public $_name;
+    private $_name;
 
     /**
      * The link to send the user to when the category name is clicked.
      * @var string The link relative to the root where the category heading will take us.
      */
-    public $_link;
+    private $_link;
 
     /**
      * Contains a list of NavigationItems for the current category.
      * @var array An array holding NavigationItem objects to display with this menu.
      */
-    public $_menuItems;
+    private $_menuItems;
 
     /**
      * Store whether the category should have interaction enabled.
      * @var boolean Is the category enabled?
      */
-    public $_enabled = true;
+    private $_enabled = true;
 
     /**
      * Used to provide an indication that the page the user is on relates to this category.
      * @var boolean Should this category be hilighted on the navigation bar?
      */
-    public $_active = false;
+    private $_active = false;
 
     /**
      * Create a new category with the specified name.
@@ -111,12 +111,17 @@ class NavigationCategory {
         return false;
     }
 
-    /**
-     * Enable or disable the category.
-     * @param Boolean New value.
-     */
-    public function setEnabled($enabled) {
-        $this->_enabled = $enabled;
+    public function __get($property){
+        if(property_exists($this, $property)){
+            return $this->$property;
+        }
+    }
+    
+    public function __set($property, $value){
+        if(property_exists($this, $property)){
+            $this->$property = $value;
+        }
+        return $this;
     }
 
 }

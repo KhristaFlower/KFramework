@@ -2,8 +2,8 @@
 
 class Index extends Controller {
 
-    function __construct() {
-        parent::__construct();
+    function __construct($details) {
+        parent::__construct($details);
 
         $this->view->mainMenuKey = "Index";
     }
