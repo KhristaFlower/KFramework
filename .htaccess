@@ -1,5 +1,3 @@
-php_value include_path ""
-
 RewriteEngine On
 
 RewriteCond %{REQUEST_FILENAME} !-d
