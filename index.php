@@ -9,7 +9,6 @@ require_once 'config.php';
 function __autoload($class) {
     $possibleDirs = array();
     $possibleDirs[] = "libs/";
-    $possibleDirs[] = "libs/navigation/";
     $possibleDirs[] = "controllers/";
     
     foreach ($possibleDirs as $dir) {

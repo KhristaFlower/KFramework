@@ -17,18 +17,21 @@ class Controller {
      */
     protected $_loggedIn = false;
     
+    protected $_pageTitle = "";
     /**
      * Contains details sent from the KFramework to this controller.
      * @var array Contains details about this controller.
      */
     protected $_details;
     
+    protected $_view;
+    
     public function __construct($details) {
         session_start();
         
         $this->_details = $details;
         
-        $this->view = new View();
+        $this->_view = new View();
         
         $this->_loggedIn = $this->checkLogin();
         
@@ -36,18 +39,28 @@ class Controller {
         $this->_requiresLogin = array();
 
         // Store a list of files that will be used on every page.
-        $this->view->css[] = "main.css";
+        $this->_view->css[] = "main.css";
 
         // Create a new navigation menu for display at the top of the page.
-        $this->view->_navMenu = new NavigationMenu();
+        $this->_view->_navMenu = new NavigationElement();
         
         // Create categories for display on the navigation bar and populate them.
-        $homeSubMenu = new NavigationSubMenu("Home","/");
-        $ucpSubMenu = new NavigationSubMenu("UCP","/ucp/");
-        $ucpSubMenu->addMenuItem(new NavigationItem("Settings","/ucp/settings/"));
+        $homeSubMenu = new NavigationElement("Home","/");
+        $ucpSubMenu = new NavigationElement("UCP","/ucp/");
+        $ucpSubMenu->addElement(new NavigationElement("Settings","/ucp/settings/"));
+        $testingElement = new NavigationElement("Testing", "/testing/");
         
         // Add categories to the main navigation.
-        $this->view->_navMenu->addSubMenu($homeSubMenu)->addSubMenu($ucpSubMenu);
+        $this->_view->_navMenu->addElement($homeSubMenu)->addElement($ucpSubMenu)->addElement($testingElement);
+        
+        for($i=1; $i<=2; $i++){
+            $test = new NavigationElement("Tab $i","/testing/");
+            for($j=1; $j<=4; $j++){
+                $test2 = new NavigationElement("Item $i/$j","/testing/");
+                $test->addElement($test2);
+            }
+            $this->_view->_navMenu->addElement($test);
+        }
     }
 
     /**
@@ -96,7 +109,7 @@ class Controller {
         $viewLocation = (empty($this->_details['path'])) ? "" : implode("/", $this->_details['path']) . "/";
         $viewLocation .= "{$this->_details['name']}/{$this->_details['name']}_$page";
         
-        $this->view->render($viewLocation);
+        $this->_view->render($viewLocation);
     }
 
     /**

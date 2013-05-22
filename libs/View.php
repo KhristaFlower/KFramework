@@ -30,10 +30,22 @@ class View {
         
     }
 
+    /*
+     * For now this function will work as a temporary solution for page rendering.
+     */
     public function render($name) {
         require PATH_VIEWS . 'header.php';
-        require PATH_VIEWS . $name . '.php';
-        require PATH_VIEWS . 'footer.php';
+        echo '<body>';
+        echo '<div class="wrapper">';
+            echo '<div class="header">KFramework</div>';
+            echo '<div class="navigation">' . $this->_navMenu->renderMenu() . '</div>';
+            echo '<div class="clearall"></div>';
+            echo '<div class="content">';
+            require PATH_VIEWS . $name . '.php';
+            echo '</div>';
+            require PATH_VIEWS . 'footer.php';
+        echo '</div>';
+        echo '</body>';
     }
 
 }
