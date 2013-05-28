@@ -1,6 +1,6 @@
 <?php
 
-class testing extends Controller {
+class Testing extends Controller {
     
     public function __construct($details){
         parent::__construct($details);
@@ -22,9 +22,6 @@ class testing extends Controller {
         $item1replacement = new NavigationElement("My Replacement Element","/ucp/testing/");
         $newTab = $tab2->updateElement("Item 2/1", $item1replacement);
         $nav->updateElement("Tab 2", $newTab);
-        
-        // Apply the changes.
-        $this->_view->_navMenu = $nav;
         
         $this->index();
     }

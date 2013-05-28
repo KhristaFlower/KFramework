@@ -19,6 +19,7 @@ function __autoload($class) {
         }else if(file_exists(strtolower($file))){
             // This check if performed because not every file name is the same case as the class we're looking for.
             require_once strtolower($file);
+            break;
         }
     }
 }

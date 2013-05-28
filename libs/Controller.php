@@ -17,24 +17,28 @@ class Controller {
      */
     protected $_loggedIn = false;
     
+    /**
+     * Used in the tab names for web pages and shows up when bookmarked.
+     * @var String The title of the page.
+     */
     protected $_pageTitle = "";
+
     /**
      * Contains details sent from the KFramework to this controller.
      * @var array Contains details about this controller.
      */
     protected $_details;
-    
     protected $_view;
-    
+
     public function __construct($details) {
         session_start();
-        
+
         $this->_details = $details;
-        
+
         $this->_view = new View();
-        
+
         $this->_loggedIn = $this->checkLogin();
-        
+
         $this->_requiresAdmin = array();
         $this->_requiresLogin = array();
 
@@ -43,20 +47,31 @@ class Controller {
 
         // Create a new navigation menu for display at the top of the page.
         $this->_view->_navMenu = new NavigationElement();
-        
+
         // Create categories for display on the navigation bar and populate them.
-        $homeSubMenu = new NavigationElement("Home","/");
-        $ucpSubMenu = new NavigationElement("UCP","/ucp/");
-        $ucpSubMenu->addElement(new NavigationElement("Settings","/ucp/settings/"));
+        $homeSubMenu = new NavigationElement("Home", "/");
+        $ucpSubMenu = new NavigationElement("UCP", "/ucp/");
+        $ucpSubMenu->addElement(new NavigationElement("Settings", "/ucp/settings/"));
         $testingElement = new NavigationElement("Testing", "/testing/");
-        
+
         // Add categories to the main navigation.
         $this->_view->_navMenu->addElement($homeSubMenu)->addElement($ucpSubMenu)->addElement($testingElement);
-        
-        for($i=1; $i<=2; $i++){
-            $test = new NavigationElement("Tab $i","/testing/");
-            for($j=1; $j<=4; $j++){
-                $test2 = new NavigationElement("Item $i/$j","/testing/");
+
+        for ($i = 1; $i <= 2; $i++) {
+            $test = new NavigationElement("Tab $i", "/testing/");
+            for ($j = 1; $j <= 4; $j++) {
+                $test2 = new NavigationElement("Item $i/$j", "/testing/");
+                if ($j == 1) {
+                    for ($k = 1; $k <= 8; $k++) {
+                        $test3 = new NavigationElement("SubItem $i/$j/$k", "/");
+                        if($k==2){
+                            for($l=1; $l<=4; $l++){
+                                $test3->addElement(new NavigationElement("SubSubItem $i/$j/$k/$l", "/"));
+                            }
+                        }
+                        $test2->addElement($test3);
+                    }
+                }
                 $test->addElement($test2);
             }
             $this->_view->_navMenu->addElement($test);
@@ -104,11 +119,11 @@ class Controller {
     public function index() {
         $this->renderPage("index");
     }
-    
-    public function renderPage($page){
+
+    public function renderPage($page) {
         $viewLocation = (empty($this->_details['path'])) ? "" : implode("/", $this->_details['path']) . "/";
         $viewLocation .= "{$this->_details['name']}/{$this->_details['name']}_$page";
-        
+
         $this->_view->render($viewLocation);
     }
 

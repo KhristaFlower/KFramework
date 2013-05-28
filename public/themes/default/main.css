@@ -14,11 +14,12 @@ a:hover{
 
 /* PAGE STRUCTURE ELEMENTS */
 
-header{
-
+.header{
+    font-size:40px;
+    font-weight:900;
 }
 
-footer{
+.footer{
     font-size:12px;
     text-align:center;
 }

@@ -45,18 +45,19 @@ pre{
 }
 
 /* NAVIGATION STYLING */
+
 /* Nav Base */
 ul.mainNav{
     display:inline-block;
     margin:0;
     padding:0;
-    background:#577504;
 }
 ul.mainNav li{
-    margin:10px;
+    margin:0;
     float:left;
     position:relative;
     list-style:none;
+    margin:5px 0;
 }
 ul.mainNav a{
     color:black;
@@ -66,14 +67,49 @@ ul.mainNav a{
 }
 /* selected element */
 ul.mainNav li:hover > a{
-    background:#FFCCCC;
+    background:#DDD;
+}
+ul.mainNav ul li:hover > a{
+    background:#EEE;
+    border:1px solid #BBB;
+    
+    border-radius:6px;
+    -webkit-border-radius:6px;
+    padding:7px 19px;
 }
 /* sublevels */
 ul.mainNav ul li:hover a, ul.mainNav li:hover li a{
-    background:#CCFFCC;
+    /* every li */
+    color:#555;
 }
+ul.mainNav ul li:hover a{
+    border:0;
+    padding:8px 20px;
+    background:inherit;
+}
+ul.mainNav ul li:hover > a{
+    color:white;
+    background:#7C7C7C;
+}
+
 ul.mainNav ul li a:hover{
-    background:#CCCCFF;
+    /* hovering over a list element */
+    border:1px solid #BBB;
+    border-radius:6px;
+    -webkit-border-radius:6px;
+    padding:7px 19px;
+    background:#EEE;
+    color:#222;
+    
+    background: #679337; /* Old browsers */
+    background: -moz-linear-gradient(top,  #679337 0%, #3a6808 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#679337), color-stop(100%,#3a6808)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #679337 0%,#3a6808 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #679337 0%,#3a6808 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #679337 0%,#3a6808 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #679337 0%,#3a6808 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#679337', endColorstr='#3a6808',GradientType=0 ); /* IE6-9 */
+
 }
 
 /* drop down */
@@ -85,16 +121,23 @@ ul.mainNav ul{
     padding:0;
     width:150px;
     position:absolute;
-    background:#FF00FF;
+    
+    background:#DDDDDD;
+    padding:0 5px;
 }
 ul.mainNav ul li{
     float:none;
     margin:0;
 }
 ul.mainNav ul a{
-    
+    margin:5px 0;
 }
 ul.mainNav ul ul{
     left:150px;
-    top:0px;
+    top:-5px;
+}
+
+/* Styling for navigational elements with submenus */
+ul.mainNav ul li a.navMenuMore{
+    font-weight:900;
 }

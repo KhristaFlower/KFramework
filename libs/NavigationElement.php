@@ -97,12 +97,40 @@ class NavigationElement {
         return null;
     }
     
+    /**
+     * Get the name of the element.
+     * @return string The name of this element.
+     */
     public function getName(){
         return $this->_name;
     }
     
+    /**
+     * Set the name of this element that should be displayed on the navigation.
+     * @param string $name The name to be used on the element to identify it.
+     * @return NavigationElement This element.
+     */
+    public function setName($name){
+        $this->_name = $name;
+        return $this;
+    }
+    
+    /**
+     * Get the URL link for this element.
+     * @return string The URL path to use as the element link.
+     */
     public function getLink(){
         return $this->_link;
+    }
+    
+    /**
+     * Set the URL to use when this element is interacted with.
+     * @param string $link The URL path from the base.
+     * @return NavigationElement This element.
+     */
+    public function setLink($link){
+        $this->_link = $link;
+        return $this;
     }
     
     /**
@@ -128,13 +156,15 @@ class NavigationElement {
      */
     private function render($output){
         $output .= "<li>";
-        $output .= "<a href='{$this->getLink()}'>{$this->getName()}</a>";
         if(count($this->getElements()) > 0){
+            $output .= "<a href='{$this->getLink()}' class='navMenuMore'>{$this->getName()}</a>";
             $output .= "<ul>";
             foreach($this->getElements() as $element){
                 $output = $element->render($output);
             }
             $output .= "</ul>";
+        }else{
+            $output .= "<a href='{$this->getLink()}'>{$this->getName()}</a>";
         }
         $output .= "</li>";
         return $output;
