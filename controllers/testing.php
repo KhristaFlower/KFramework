@@ -1,35 +1,28 @@
 <?php
 
+/**
+ * KFramework (http://kframework.csharman.co.uk/)
+ * 
+ * @link https://github.com/Kriptonic/KFramework The GitHub repository for this project.
+ * @copyright (c) 2013, Christopher Sharman (http://csharman.co.uk)
+ * @license http://www.apache.org/licenses/LICENSE-2.0 Licensed under the Apache License v2.0
+ */
 class Testing extends Controller {
-    
-    public function __construct($details){
-        parent::__construct($details);
-    }
-    
-    public function changenav(){
-        // Get a copy of the menu.
-        $nav = $this->_view->_navMenu;
-        
-        // Short way to update a menu element.
-        $nav->getElement("UCP")->updateElement("Settings",new NavigationElement("SeTtInGs","/ucp/settings/"));
-        // A few more examples of short updates.
-        $nav->getElement("Tab 1")->updateElement("Item 1/1",new NavigationElement("Dog", "/ucp/testing/"));
-        $nav->getElement("Tab 1")->updateElement("Item 1/2",new NavigationElement("Cat", "/ucp/testing/"));
-        $nav->getElement("Tab 1")->updateElement("Item 1/3",new NavigationElement("Rat", "/ucp/testing/"));
-        $nav->getElement("Tab 1")->updateElement("Item 1/4",new NavigationElement("Ant", "/ucp/testing/"));
-        // Long way to update a menu element.
-        $tab2 = $nav->getElement("Tab 2");
-        $item1replacement = new NavigationElement("My Replacement Element","/ucp/testing/");
-        $newTab = $tab2->updateElement("Item 2/1", $item1replacement);
-        $nav->updateElement("Tab 2", $newTab);
-        
-        $this->index();
-    }
-    
-    public function index(){
-        parent::index();
-    }
-    
-}
 
-?>
+    public function __construct($dataContainer) {
+        parent::__construct($dataContainer);
+    }
+
+    public function template($args) {
+        if ($args[0] == "master") {
+            $template = new Template('templates/main.php', $this->dataContainer);
+        } else if ($args[0] == "secondary") {
+            $template = new Template('templates/secondary.php', $this->dataContainer);
+        } else if ($args[0] == "tertiary") {
+            $template = new Template('templates/tertiary.php', $this->dataContainer);
+        }
+
+        $template->display();
+    }
+
+}

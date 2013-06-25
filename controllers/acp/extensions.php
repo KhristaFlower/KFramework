@@ -7,9 +7,9 @@
  * @copyright (c) 2013, Christopher Sharman (http://csharman.co.uk)
  * @license http://www.apache.org/licenses/LICENSE-2.0 Licensed under the Apache License v2.0
  */
-class UCP extends Controller {
+class Extensions extends ACP {
 
-    public function __construct($details) {
+    function __construct($details) {
         parent::__construct($details);
     }
 
