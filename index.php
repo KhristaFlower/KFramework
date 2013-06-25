@@ -9,7 +9,6 @@ require_once 'config.php';
 function __autoload($class) {
     $possibleDirs = array();
     $possibleDirs[] = "libs/";
-    $possibleDirs[] = "libs/navigation/";
     $possibleDirs[] = "controllers/";
     
     foreach ($possibleDirs as $dir) {
@@ -20,6 +19,7 @@ function __autoload($class) {
         }else if(file_exists(strtolower($file))){
             // This check if performed because not every file name is the same case as the class we're looking for.
             require_once strtolower($file);
+            break;
         }
     }
 }
